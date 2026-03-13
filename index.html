@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TripBudget — Planificador de Presupuesto de Viajes</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Google Icons -->
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
         <div class="container">
             <div class="logo">
                 <span class="material-icons">flight_takeoff</span>
@@ -34,7 +32,6 @@
                 </div>
 
                 <form id="tripForm" class="trip-form">
-                    <!-- Fila 1: Destino y Duración -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="destination">
@@ -69,7 +66,6 @@
                         </div>
                     </div>
 
-                    <!-- Fila 2: Presupuesto disponible y Transporte -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="budget">
@@ -104,7 +100,6 @@
                         </div>
                     </div>
 
-                    <!-- Fila 3: Alojamiento, Comida y Actividades -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="accommodation">
@@ -155,7 +150,6 @@
                         </div>
                     </div>
 
-                    <!-- Botón de envío -->
                     <button type="submit" class="btn btn-primary">
                         <span class="material-icons">calculate</span>
                         Calcular presupuesto
@@ -169,7 +163,6 @@
                     <h2>Resumen de tu viaje</h2>
                 </div>
 
-                <!-- Card principal con veredicto -->
                 <div class="verdict-card" id="verdictCard">
                     <div class="verdict-content">
                         <div class="verdict-emoji" id="verdictEmoji"></div>
@@ -179,9 +172,7 @@
                     </div>
                 </div>
 
-                <!-- Grid de resumen detallado -->
                 <div class="results-grid">
-                    <!-- Trip Info -->
                     <div class="result-card">
                         <h3>
                             <span class="material-icons">info</span>
@@ -201,7 +192,6 @@
                         </div>
                     </div>
 
-                    <!-- Budget Breakdown -->
                     <div class="result-card">
                         <h3>
                             <span class="material-icons">bar_chart</span>
@@ -225,7 +215,6 @@
                         </div>
                     </div>
 
-                    <!-- Summary -->
                     <div class="result-card">
                         <h3>
                             <span class="material-icons">summarize</span>
@@ -255,7 +244,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 TripBudget. Hecho con <span class="material-icons">favorite</span> para aventureros.</p>
