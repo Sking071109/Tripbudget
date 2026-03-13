@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripBudget — Planificador de Presupuesto de Viajes</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Google Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="material-icons">flight_takeoff</span>
+                <h1>TripBudget</h1>
+            </div>
+            <p class="tagline">Planifica tu viaje perfecto con inteligencia financiera</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Sección del formulario -->
+            <section class="form-section">
+                <div class="form-header">
+                    <h2>Datos de tu viaje</h2>
+                    <p>Completa todos los campos para calcular tu presupuesto</p>
+                </div>
+
+                <form id="tripForm" class="trip-form">
+                    <!-- Fila 1: Destino y Duración -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="destination">
+                                <span class="material-icons">location_on</span>
+                                Destino
+                            </label>
+                            <input 
+                                type="text" 
+                                id="destination" 
+                                name="destination" 
+                                placeholder="ej: París, Nueva York, Cartagena"
+                                required
+                            >
+                            <small class="error" id="destinationError"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="duration">
+                                <span class="material-icons">calendar_today</span>
+                                Duración (días)
+                            </label>
+                            <input 
+                                type="number" 
+                                id="duration" 
+                                name="duration" 
+                                placeholder="ej: 7"
+                                min="1"
+                                max="365"
+                                required
+                            >
+                            <small class="error" id="durationError"></small>
+                        </div>
+                    </div>
+
+                    <!-- Fila 2: Presupuesto disponible y Transporte -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="budget">
+                                <span class="material-icons">wallet</span>
+                                Presupuesto disponible
+                            </label>
+                            <input 
+                                type="number" 
+                                id="budget" 
+                                name="budget" 
+                                placeholder="ej: 2000000"
+                                min="0"
+                                required
+                            >
+                            <small class="error" id="budgetError"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="transport">
+                                <span class="material-icons">flight</span>
+                                Costo de transporte (ida y vuelta)
+                            </label>
+                            <input 
+                                type="number" 
+                                id="transport" 
+                                name="transport" 
+                                placeholder="ej: 500000"
+                                min="0"
+                                required
+                            >
+                            <small class="error" id="transportError"></small>
+                        </div>
+                    </div>
+
+                    <!-- Fila 3: Alojamiento, Comida y Actividades -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="accommodation">
+                                <span class="material-icons">hotel</span>
+                                Alojamiento por noche
+                            </label>
+                            <input 
+                                type="number" 
+                                id="accommodation" 
+                                name="accommodation" 
+                                placeholder="ej: 100000"
+                                min="0"
+                                required
+                            >
+                            <small class="error" id="accommodationError"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="food">
+                                <span class="material-icons">restaurant</span>
+                                Presupuesto de comida diario
+                            </label>
+                            <input 
+                                type="number" 
+                                id="food" 
+                                name="food" 
+                                placeholder="ej: 80000"
+                                min="0"
+                                required
+                            >
+                            <small class="error" id="foodError"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="activities">
+                                <span class="material-icons">attractions</span>
+                                Presupuesto de actividades diario
+                            </label>
+                            <input 
+                                type="number" 
+                                id="activities" 
+                                name="activities" 
+                                placeholder="ej: 50000"
+                                min="0"
+                                required
+                            >
+                            <small class="error" id="activitiesError"></small>
+                        </div>
+                    </div>
+
+                    <!-- Botón de envío -->
+                    <button type="submit" class="btn btn-primary">
+                        <span class="material-icons">calculate</span>
+                        Calcular presupuesto
+                    </button>
+                </form>
+            </section>
+
+            <!-- Sección de resultados -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>Resumen de tu viaje</h2>
+                </div>
+
+                <!-- Card principal con veredicto -->
+                <div class="verdict-card" id="verdictCard">
+                    <div class="verdict-content">
+                        <div class="verdict-emoji" id="verdictEmoji"></div>
+                        <h3 id="verdictTitle"></h3>
+                        <p id="verdictMessage"></p>
+                        <div class="verdict-amount" id="verdictAmount"></div>
+                    </div>
+                </div>
+
+                <!-- Grid de resumen detallado -->
+                <div class="results-grid">
+                    <!-- Trip Info -->
+                    <div class="result-card">
+                        <h3>
+                            <span class="material-icons">info</span>
+                            Tu viaje
+                        </h3>
+                        <div class="result-item">
+                            <span>Destino:</span>
+                            <strong id="resultDestination"></strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Duración:</span>
+                            <strong id="resultDuration"></strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Categoría:</span>
+                            <strong id="resultCategory"></strong>
+                        </div>
+                    </div>
+
+                    <!-- Budget Breakdown -->
+                    <div class="result-card">
+                        <h3>
+                            <span class="material-icons">bar_chart</span>
+                            Desglose de gastos
+                        </h3>
+                        <div class="result-item">
+                            <span>Transporte:</span>
+                            <strong id="resultTransport"></strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Alojamiento (total):</span>
+                            <strong id="resultAccommodationTotal"></strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Comida (total):</span>
+                            <strong id="resultFoodTotal"></strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Actividades (total):</span>
+                            <strong id="resultActivitiesTotal"></strong>
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="result-card">
+                        <h3>
+                            <span class="material-icons">summarize</span>
+                            Resumen financiero
+                        </h3>
+                        <div class="result-item">
+                            <span>Presupuesto disponible:</span>
+                            <strong id="resultAvailableBudget"></strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Costo total estimado:</span>
+                            <strong id="resultTotalCost"></strong>
+                        </div>
+                        <div class="result-item highlight">
+                            <span>Diferencia:</span>
+                            <strong id="resultDifference"></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón para recalcular -->
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                    <span class="material-icons">refresh</span>
+                    Planificar otro viaje
+                </button>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 TripBudget. Hecho con <span class="material-icons">favorite</span> para aventureros.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
